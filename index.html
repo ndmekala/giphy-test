@@ -6,15 +6,36 @@
 </head>
 <body>
   <img src="#" />
+  <button class="btn">Click</button>
+  <input type="text" class="query">
   <script>
       const img = document.querySelector('img');
-      fetch('https://api.giphy.com/v1/gifs/translate?api_key=E8epzZmyRn5kWhcmcYR2L9SiD4hSkWKa&s=cats', {mode: 'cors'})
+      const btn = document.querySelector('.btn');
+      const query = document.querySelector('.query');
+      let search = "cats"
+      query.addEventListener(('input'), () => {
+        search = query.value;
+        console.log(search)
+      });
+      btn.addEventListener(('click'), () => {
+        fetch(`https://api.giphy.com/v1/gifs/translate?api_key=E8epzZmyRn5kWhcmcYR2L9SiD4hSkWKa&s=${search}`, {mode: 'cors'})
         .then(function(response) {
             return response.json();
         })
         .then(function(response) {
             img.src = response.data.images.original.url;
-        });
+        })
+        .catch((error) => {
+          console.error('yadda', error);
+        });  
+      })
+      // fetch('https://api.giphy.com/v1/gifs/translate?api_key=E8epzZmyRn5kWhcmcYR2L9SiD4hSkWKa&s=cats', {mode: 'cors'})
+      //   .then(function(response) {
+      //       return response.json();
+      //   })
+      //   .then(function(response) {
+      //       img.src = response.data.images.original.url;
+      //   });
   </script>
 </body>
 </html>
